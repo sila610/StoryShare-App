@@ -1,0 +1,73 @@
+{
+  "id": "/#/",
+  "start_url": "/#/",
+  "scope": "/",
+  "name": "StoryShare App",
+  "short_name": "StoryShare",
+  "description": "StoryShare adalah platform berbagi cerita yang memungkinkan setiap orang untuk berbagi kisah, pengalaman, dan petualangan mereka. Cerita Anda bisa menginspirasi banyak orang dan membangun komunitas yang saling terhubung. Bergabunglah dengan kami dan bagikan cerita Anda kepada dunia!",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4a90e2",
+  "icons": [
+    {
+      "src": "assets/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+       "purpose": "any"
+    },
+    {
+      "src": "assets/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+       "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/screenshot1.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "screenshots/screenshot2.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "screenshots/screenshot3.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Tambah Cerita",
+      "short_name": "Tambah",
+      "description": "Tambah cerita baru dengan cepat",
+      "url": "/#/add-story",
+      "icons": [
+        {
+          "src": "assets/icon-128x128.png",
+          "sizes": "128x128",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Daftar Cerita",
+      "short_name": "Cerita",
+      "description": "Lihat daftar cerita terbaru",
+      "url": "/#/stories",
+      "icons": [
+        {
+          "src": "assets/icon-128x128.png",
+          "sizes": "128x128",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}

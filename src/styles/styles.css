@@ -1,0 +1,484 @@
+/* Resetting some basic styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global Styles */
+html, body {
+  height: 100%; /* Pastikan tinggi penuh */
+  font-family: 'Inter', sans-serif;
+  background-color: #e9f0f7; /* Warna latar lebih lembut */
+  color: #2c3e50; /* Warna teks utama gelap tapi lembut */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* minimal setinggi viewport */
+  margin: 0;
+}
+
+.story-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 28px;
+  color: #34495e; /* Warna judul form */
+}
+
+/* Container utama (body wrapper) */
+body > main.main-content {
+  flex: 1 0 auto; /* Isi utama akan mengambil ruang yang tersedia */
+  padding: 40px 0;
+}
+
+/* Footer sticky di bawah */
+
+footer {
+  flex-shrink: 0; /* footer tidak boleh mengecil */
+  background-color: #34495e;
+  color: #ecf0f1;
+  padding: 20px 0;
+  margin-top: auto; /* dorong footer ke bawah */
+}
+
+/* Footer konten agar rapi */
+footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+footer .footer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+}
+
+footer .brand-name__link__text {
+  font-size: 18px;
+  font-weight: 600;
+  margin-left: 10px;
+  color: #ecf0f1;
+}
+
+footer p {
+  font-size: 14px;
+  color: #bdc3c7;
+  margin: 0;
+}
+
+footer a {
+  color: #ecf0f1;
+  font-weight: 500;
+  margin-right: 10px;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #f39c12; /* Warna oranye menarik saat hover */
+}
+
+/* Links */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Buttons */
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+}
+
+#btn-subscribe-push {
+  background-color: #1abc9c;
+  color: white;
+  cursor: pointer;
+  border: none;
+  font-weight: 700;
+}
+
+#btn-subscribe-push:hover {
+  background-color: #16a085;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+}
+/* Container */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Skip Link */
+.skip-link {
+  position: absolute;
+  top: -40px; /* tersembunyi di atas viewport */
+  left: 0;
+  background-color: #005fcc;
+  color: white;
+  padding: 8px 16px;
+  z-index: 1000;
+  font-weight: bold;
+  border-radius: 4px;
+  font-size: 16px;
+  text-decoration: none;
+  display: none; /* tersembunyi default */
+  transition: top 0.3s ease;
+}
+
+.skip-link:focus,
+.skip-link:active {
+  top: 10px; /* muncul di atas */
+  display: inline-block;
+  outline: 3px solid #ffbf47;
+  outline-offset: 2px;
+  cursor: pointer;
+}
+
+.skip-link:hover {
+  background-color: #003d99;
+  color: #ffbf47;
+  text-decoration: none;
+}
+
+/* Header */
+header {
+  background-color: #2980b9; /* Biru utama yang cerah */
+  color: #ecf0f1;
+  padding: 20px 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-name__link {
+  display: flex;
+  align-items: center;
+  color: #ecf0f1;
+  font-weight: 700;
+}
+
+.brand-name__link__text {
+  font-size: 28px;
+  font-weight: 700;
+  margin-left: 10px;
+  color: #ecf0f1;
+}
+
+.navigation-drawer {
+  display: none;
+}
+
+.navigation-drawer__navlist-main {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-around;
+}
+
+.navigation-drawer__navlist-main li {
+  margin-right: 20px;
+}
+
+.navigation-drawer__navlist-main li a {
+  color: #ecf0f1;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.navigation-drawer__navlist-main li a:hover {
+  background-color: #f39c12; /* Oranye pada hover */
+  color: #2c3e50;
+}
+
+.drawer-button {
+  background-color: #1abc9c; /* Hijau toska cerah */
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+}
+
+.drawer-button:hover {
+  background-color: #16a085; /* Hijau toska gelap */
+}
+
+/* Main Content */
+main {
+  padding: 40px 0;
+}
+
+/* Story List */
+.story-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 20px;
+  padding: 0 12px;
+}
+
+.story-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  overflow: hidden;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.story-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+.story-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 14px;
+}
+
+.story-card h3 {
+  margin-top: 0;
+  font-size: 22px;
+  color: #34495e;
+}
+
+.story-card p {
+  font-size: 15px;
+  color: #7f8c8d;
+  line-height: 1.5;
+  flex-grow: 1;
+}
+
+/* Taken pictures list for Add Story form */
+.taken-pictures-list {
+  list-style: none;
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  padding-left: 0;
+  flex-wrap: wrap;
+}
+
+.taken-pictures-list__item {
+  position: relative;
+  border: 1.5px solid #bdc3c7;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 110px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ecf0f1;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.taken-pictures-list__item img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.delete-picture-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: #e74c3c;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* Form specific styles for Add Story */
+.story-form {
+  background-color: #ffffff;
+  padding: 24px 36px;
+  border-radius: 14px;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.12);
+  max-width: 720px;
+  margin: 30px auto 50px auto;
+  transition: box-shadow 0.3s ease;
+}
+
+.story-form:hover {
+  box-shadow: 0 8px 35px rgba(0,0,0,0.18);
+}
+
+.story-form .form-control {
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.story-form label {
+  font-weight: 700;
+  margin-bottom: 8px;
+  font-size: 17px;
+  color: #34495e;
+}
+
+.story-form input[type="text"],
+.story-form textarea,
+.story-form input[type="file"] {
+  font-family: 'Inter', sans-serif;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 2px solid #bdc3c7;
+  border-radius: 10px;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.story-form input[type="text"]:focus,
+.story-form textarea:focus,
+.story-form input[type="file"]:focus {
+  border-color: #2980b9;
+  outline: none;
+}
+
+.story-form textarea {
+  min-height: 120px;
+  resize: vertical;
+  font-size: 15px;
+  color: #7f8c8d;
+}
+
+/* Tombol utama dengan warna hijau toska */
+.story-form button.btn {
+  background-color: #1abc9c;
+  color: #fff;
+  padding: 14px 28px;
+  font-weight: 700;
+  font-size: 18px;
+  border-radius: 10px;
+  border: none;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  width: 100%;
+  max-width: 240px;
+  align-self: flex-start;
+}
+
+.story-form button.btn:hover {
+  background-color: #16a085;
+}
+
+/* Tombol outline dengan warna biru */
+.story-form button.btn-outline {
+  background-color: transparent;
+  border: 2px solid #2980b9;
+  color: #2980b9;
+  padding: 12px 28px;
+  font-weight: 700;
+  font-size: 16px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+  margin-left: 12px;
+  width: 100%;
+  max-width: 240px;
+  align-self: flex-start;
+}
+
+.story-form button.btn-outline:hover {
+  background-color: #2980b9;
+  color: #fff;
+}
+
+/* Location display styling */
+#location-display {
+  font-size: 15px;
+  color: #7f8c8d;
+  user-select: none;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .story-form {
+    padding: 18px 24px;
+    margin: 20px 12px 35px 12px;
+  }
+
+  .story-form button.btn,
+  .story-form button.btn-outline {
+    max-width: 100%;
+    margin-left: 0;
+    margin-bottom: 14px;
+  }
+}
+
+/* Kamera dan tombol ambil foto */
+#camera {
+  display: block;
+  width: 100%;
+  max-height: 320px;
+  border-radius: 12px;
+  margin-bottom: 14px; /* Jeda antara kamera dan tombol */
+  object-fit: cover;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+}
+
+#capture {
+  margin-top: 12px; /* Jeda di atas tombol */
+  padding: 12px 24px;
+  font-weight: 700;
+  border-radius: 8px;
+  background-color: #1abc9c;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#capture:hover {
+  background-color: #16a085;
+}
+
+/* Navigation drawer show on desktop */
+@media screen and (min-width: 769px) {
+  .navigation-drawer {
+    display: block;
+  }
+}
+
+/* Mobile Styles */
+@media screen and (max-width: 768px) {
+  .navigation-drawer__navlist-main {
+    display: none;
+  }
+
+  .drawer-button {
+    display: block;
+  }
+
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .brand-name__link__text {
+    font-size: 22px;
+  }
+}

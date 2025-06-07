@@ -1,0 +1,33 @@
+# URL Aplikasi:
+# APP_URL=<https://github.com/sila610/StoryShareApp>
+MAP_SERVICE_API_KEY:
+Kosong – menggunakan Leaflet default (OpenStreetMap).
+
+#Panduan Penggunaan Aplikasi
+1. Klik menu Register pada navigasi atas untuk mendaftar.
+
+2. Setelah berhasil mendaftar, lakukan Login menggunakan akun tersebut.
+
+3. Setelah login, pengguna akan diarahkan ke halaman utama yang menampilkan daftar cerita.
+
+4. Jika pengguna belum login, halaman utama akan gagal memuat data cerita.
+
+# API yang Digunakan
+Dicoding Story API: https://story-api.dicoding.dev/v1/stories
+
+# Fitur yang Telah Diimplementasikan
+1. Menampilkan daftar cerita dari API.
+
+2. Halaman untuk menambahkan cerita baru dengan input deskripsi dan foto.
+
+3. Mendukung pengambilan gambar langsung melalui kamera browser.
+
+4. Pengguna dapat memilih titik lokasi pada peta saat menambahkan cerita.
+
+5. Aplikasi dibangun sebagai Single Page Application (SPA) dengan hash routing.
+
+6. Menggunakan arsitektur Model-View-Presenter (MVP).
+
+7. Transisi antar halaman yang mulus berkat View Transition API.
+
+8. Dukungan aksesibilitas: elemen semantik, alt text pada gambar, serta fitur "skip to content".
