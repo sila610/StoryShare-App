@@ -1,5 +1,5 @@
 import * as model from '../model/storyModel.js';
-import { navigateTo } from '../index.js';
+import { navigateTo } from '../../public/index.js';
 
 export default class RegisterPresenter {
   constructor(view) {
@@ -17,6 +17,9 @@ export default class RegisterPresenter {
     try {
       const result = await model.registerUser(name, email, password);
       if (!result.error) {
+        // Tandai bahwa ini adalah pengguna baru yang baru saja register
+        sessionStorage.setItem('justRegistered', 'true');
+        
         this.view.showSuccess('Registrasi berhasil! Silakan login.');
         await navigateTo('#login');
       } else {

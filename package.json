@@ -1,9 +1,10 @@
 {
   "name": "ceritaapp",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "public/index.js",
   "scripts": {
     "clean": "rimraf dist",
+    "copy-sw-dev": "cp public/sw-dev.js dist/sw-dev.js",
     "start": "webpack serve --open --mode development",
     "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -36,6 +37,12 @@
     "idb": "^8.0.3",
     "leaflet": "^1.9.4",
     "leaflet.markercluster": "^1.5.3",
-    "workbox-precaching": "^7.3.0"
+    "workbox-cacheable-response": "^7.3.0",
+    "workbox-precaching": "^7.3.0",
+    "workbox-routing": "^7.3.0",
+    "workbox-strategies": "^7.3.0"
   }
 }
+
+
+

@@ -1,3 +1,6 @@
+/*!*************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/styles/styles.css ***!
+  \*************************************************************************/
 /* Resetting some basic styles */
 * {
   margin: 0;
@@ -697,3 +700,4 @@ main {
   font-weight: bold;
   font-size: 1.2em;
 }
+

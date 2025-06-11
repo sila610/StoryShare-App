@@ -8,7 +8,7 @@ export default class RegisterView {
 
   render() {
     this.container.innerHTML = `
-      <h2>Register</h2>
+      <h2 style="text-align:center; margin-bottom:20px; font-weight:700; font-size:28px; color:#333;">Register</h2>
       <form id="registerForm" class="story-form" novalidate>
         <div class="form-control">
           <label for="name">Nama Lengkap:</label>

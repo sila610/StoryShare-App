@@ -1,85 +1,93 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { InjectManifest } = require('workbox-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
+  const isDevelopment = !isProduction;
+
+  // Plugins array
+  const plugins = [
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, './public/index.html'),
+      inject: 'body',
+    }),
+
+    new MiniCssExtractPlugin({
+      filename: 'styles/[name].[contenthash].css',
+    }),
+
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'public/app.webmanifest'),
+          to: 'app.webmanifest',
+        },
+        {
+          from: path.resolve(__dirname, 'public/assets'),
+          to: 'assets',
+        },
+        {
+          from: path.resolve(__dirname, 'public/screenshots'),
+          to: 'screenshots',
+        },
+        // Salin index.js ke dist
+        {
+          from: path.resolve(__dirname, 'public/index.js'),
+          to: 'index.js',
+        },
+        // Salin styles.css dari src/styles ke dist
+        {
+          from: path.resolve(__dirname, 'src/styles/styles.css'),
+          to: 'styles.css',
+        },
+        // Salin sw.js langsung ke dist
+        {
+          from: path.resolve(__dirname, 'sw.js'),
+          to: 'sw.js',
+        },
+        // Salin offline.html ke dist
+        {
+          from: path.resolve(__dirname, 'public/offline.html'),
+          to: 'offline.html',
+        },
+      ],
+    }),
+  ];
 
   return {
     entry: {
-      app: path.resolve(__dirname, 'src/index.js'),  // Pastikan path ke index.js benar
+      app: path.resolve(__dirname, './public/index.js'),
     },
-
     output: {
-      path: path.resolve(__dirname, 'dist'),  // Tempatkan hasil build di folder dist
-      filename: isProduction ? '[name].[contenthash].bundle.js' : '[name].bundle.js',
+      filename: '[name].bundle.js',
+      path: path.resolve(__dirname, 'dist'),
       clean: true,
     },
-
-    resolve: {
-      alias: {
-        utils: path.resolve(__dirname, 'src/utils/'),  // Alias untuk `utils`
-      },
-      extensions: ['.js', '.json', '.wasm', '.css'],
-    },
-    
     module: {
       rules: [
         {
-          test: /\.css$/i,
-          use: [
-            isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
-            'css-loader',
-          ],
+          test: /\.css$/,
+          use: [MiniCssExtractPlugin.loader, 'css-loader'],
         },
         {
-          test: /\.(png|jpe?g|gif|svg)$/i,
+          test: /\.(png|svg|jpg|jpeg|gif)$/i,
           type: 'asset/resource',
+          generator: {
+            filename: 'assets/[name][ext]',
+          },
         },
       ],
     },
-
-    plugins: [
-      new HtmlWebpackPlugin({
-        template: path.resolve(__dirname, 'src/index.html'),
-        inject: 'body',
-      }),
-
-      isProduction && new InjectManifest({
-        swSrc: path.resolve(__dirname, 'src/sw.js'),
-        swDest: 'sw.bundle.js',
-      }),
-
-      new MiniCssExtractPlugin({
-        filename: 'styles/[name].[contenthash].css',
-      }),
-
-      new CopyWebpackPlugin({
-        patterns: [
-          {
-            from: path.resolve(__dirname, 'public/app.webmanifest'),
-            to: 'app.webmanifest',
-          },
-          {
-            from: path.resolve(__dirname, 'public/assets'),
-            to: 'assets',
-          },
-          {
-            from: path.resolve(__dirname, 'public/screenshots'),
-            to: 'screenshots',
-          },
-        ],
-      }),
-    ],
-
-    optimization: {
-      splitChunks: {
-        chunks: 'all',
+    plugins,
+    resolve: {
+      extensions: ['.js'],
+      alias: {
+        utils: path.resolve(__dirname, 'src/utils/'),
+        src: path.resolve(__dirname, 'src/'),
       },
     },
-
     devServer: {
       static: [
         {
@@ -87,7 +95,7 @@ module.exports = (env, argv) => {
         },
         {
           directory: path.join(__dirname, 'src/styles'),
-          publicPath: '/src/styles',
+          publicPath: '/styles',
         },
         {
           directory: path.join(__dirname, 'public'),
@@ -96,9 +104,12 @@ module.exports = (env, argv) => {
       ],
       open: true,
       hot: true,
-      port: 9000,
+      port: 9003,
+      // Tambahkan konfigurasi untuk service worker
+      devMiddleware: {
+        writeToDisk: true, // Tulis file ke disk agar service worker dapat mengaksesnya
+      },
     },
-
     mode: isProduction ? 'production' : 'development',
     devtool: isProduction ? 'source-map' : 'eval-source-map',
     target: 'web',

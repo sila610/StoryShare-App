@@ -1,6 +1,14 @@
 // src/presenter/storyPresenter.js
 export function createStoryCard(story) {
-  const photo = story.photoUrl || '/assets/place_24dp_5985E1.png';
+  // Pastikan ada URL gambar, gunakan placeholder jika tidak ada
+  let photoUrl = '/assets/place_24dp_5985E1.png'; // Default placeholder
+  
+  if (story.photoUrl) {
+    photoUrl = story.photoUrl;
+  } else if (story.photo) {
+    photoUrl = story.photo;
+  }
+  
   const date = story.createdAt
     ? new Date(story.createdAt).toLocaleDateString()
     : 'Tanggal tidak tersedia';
@@ -9,14 +17,17 @@ export function createStoryCard(story) {
 
   return `
     <div class="story-card" tabindex="0" data-id="${story.id}">
-      <img src="${photo}" alt="Gambar cerita oleh ${story.name || 'Anonim'}" />
+      <img src="${photoUrl}" alt="Gambar cerita oleh ${story.name || 'Anonim'}" 
+           onerror="this.onerror=null; this.src='/assets/place_24dp_5985E1.png';" />
       <h3>${story.name || 'Anonim'}</h3>
       <p>${story.description || '-'}</p>
       <p><small>${date}</small></p>
-      <button class="save-btn" data-id="${story.id}" ${isSaved ? 'disabled' : ''}>
-        ${isSaved ? 'Tersimpan' : 'Simpan'}
-      </button>
-      ${isSaved ? `<button class="delete-btn" data-id="${story.id}">Hapus</button>` : ''}
+      <div class="story-card-actions">
+        <button class="save-btn" data-id="${story.id}" ${isSaved ? 'disabled' : ''}>
+          ${isSaved ? 'Tersimpan' : 'Simpan'}
+        </button>
+        ${isSaved ? `<button class="delete-btn" data-id="${story.id}">Hapus</button>` : ''}
+      </div>
     </div>
   `;
 }

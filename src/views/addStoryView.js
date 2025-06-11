@@ -21,10 +21,31 @@ export default class AddStoryView {
     this.onCancel = null;
     this.onTakePhoto = null;
     this.onUploadPhoto = null;
+    
+    // Pastikan kamera dimatikan saat navigasi berubah
+    window.addEventListener('hashchange', () => {
+      if (window.location.hash !== '#add-story') {
+        this.stopCamera();
+      }
+    });
   }
 
   render() {
     this.container.innerHTML = `
+      <style>
+        .camera-permission-prompt {
+          background-color: #f0f8ff;
+          border: 1px solid #5985e1;
+          border-radius: 8px;
+          padding: 20px;
+          margin: 10px 0;
+          text-align: center;
+        }
+        .camera-permission-prompt p {
+          margin-bottom: 15px;
+          color: #333;
+        }
+      </style>
       <h2 style="text-align:center; margin-bottom:20px;">Tambah Cerita Baru</h2>
       <form id="storyForm" class="story-form" novalidate>
         <div class="form-control">
@@ -65,8 +86,11 @@ export default class AddStoryView {
     `;
 
     this.#bindEvents();
-    this.#setupCamera();
+    // Tidak memanggil setupCamera di sini lagi, karena akan dipanggil dari presenter
     this.#setupMap();
+    
+    // Simpan instance ini ke window agar bisa diakses global untuk mematikan kamera
+    window.currentAddStoryView = this;
   }
 
   #bindEvents() {
@@ -93,6 +117,12 @@ export default class AddStoryView {
       const photoFile = this.takenPictures[0];
       if (photoFile.size > 1024 * 1024) {
         alert('Ukuran gambar maksimal 1MB.');
+        return;
+      }
+
+      // Validasi lokasi
+      if (!this.selectedLocation.lat || !this.selectedLocation.lon) {
+        alert('Anda harus memilih lokasi pada peta.');
         return;
       }
 
@@ -128,7 +158,7 @@ export default class AddStoryView {
           this.addTakenPicture(blob);
           if (this.onTakePhoto) this.onTakePhoto(blob);
         }
-      }, 'image/jpeg');
+      }, 'image/jpeg', 0.8); // Kompres gambar untuk mengurangi ukuran
     });
 
     fileUpload.addEventListener('change', e => {
@@ -143,11 +173,15 @@ export default class AddStoryView {
     });
   }
 
-  #setupCamera() {
+  setupCamera() {
     const video = this.container.querySelector('#camera');
 
+    // Pastikan kamera sebelumnya dimatikan dulu
     this.stopCamera();
 
+    console.log('Setting up camera...');
+    
+    // Minta izin kamera langsung
     navigator.mediaDevices.getUserMedia({ video: true })
       .then(stream => {
         this._stream = stream;
@@ -155,10 +189,11 @@ export default class AddStoryView {
         video.style.display = 'block';
         const canvas = this.container.querySelector('#snapshot');
         if (canvas) canvas.style.display = 'none';
+        console.log('Camera started successfully');
       })
       .catch(err => {
         console.error('Tidak dapat mengakses kamera', err);
-        alert('Akses kamera ditolak atau tidak tersedia.');
+        alert('Akses kamera ditolak atau tidak tersedia. Silakan izinkan akses kamera di pengaturan browser Anda.');
       });
   }
 
@@ -224,10 +259,15 @@ export default class AddStoryView {
   }
 
   stopCamera() {
+    console.log('Stopping camera...');
     try {
       if (this._stream) {
-        this._stream.getTracks().forEach(track => track.stop());
+        this._stream.getTracks().forEach(track => {
+          console.log('Stopping track:', track.kind);
+          track.stop();
+        });
         this._stream = null;
+        console.log('Camera stopped successfully');
       }
       if (this.container) {
         const video = this.container.querySelector('#camera');
